@@ -1,7 +1,7 @@
 #!/bin/bash
-downloan_url='https://pkg.jenkins.io/redhat-stable/jenkins-2.107.3-1.1.noarch.rpm';
-downloan_file_name='jenkins-2.107.3-1.1.noarch.rpm';
-jenkins_md5=''
+downloan_url='https://mirrors.tuna.tsinghua.edu.cn/jenkins/redhat/jenkins-2.189-1.1.noarch.rpm';
+downloan_file_name='jenkins-2.189-1.1.noarch.rpm';
+jenkins_md5='67cdc6714a066de6992de6de8ccf260f'
 function _init() {
 	mkdir -p /opt/jenkins/.jenkins
 	chown -R dev:dev /opt/jenkins/
@@ -19,7 +19,7 @@ function _install() {
 
 # start
 function _start() {
-	su - dev -c 'nohup java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8083 --prefix=/jenkins &' 
+	su - dev -c 'nohup java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8080 --prefix=/jenkins &' 
 	echo "start jenkins success !!!"
 }
 
@@ -31,7 +31,7 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/jenkins
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/jenkins
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/jenkins
-	echo "su - dev -c 'java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8083 --prefix=/jenkins &'" >> /etc/rc.d/init.d/jenkins
+	echo "su - dev -c 'java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8080 --prefix=/jenkins &'" >> /etc/rc.d/init.d/jenkins
 	chkconfig --add jenkins
 	echo "chkconfig add jenkins success"
 }
